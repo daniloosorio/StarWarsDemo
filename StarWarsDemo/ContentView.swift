@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var vm = StarCardVM()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        List {
+            ForEach(vm.cards) { card in
+                StarCardView(card: card)
+            }
         }
-        .padding()
     }
 }
 
 #Preview {
-    ContentView()
+    //ContentView(vm:StarCardVM(repository: RepositoryTest())) // way to load test file
+    ContentView()// way to load production file
 }
