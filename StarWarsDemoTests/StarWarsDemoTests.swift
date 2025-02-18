@@ -8,10 +8,25 @@
 import Testing
 @testable import StarWarsDemo
 
-struct StarWarsDemoTests {
+extension Tag {
+    @Tag static var repository: Self
+}
 
-    @Test func example() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+@Suite("prueba del repository start cards", .tags(.repository))
+struct StarWarsDemoTests {
+    let repository = Repository()
+    let viewModel = StarCardVM(repository: RepositoryTest())
+    
+    @Test("Pruebas de carga del repositorio")
+    func dataLoad() throws {
+        let data = try repository.getData()
+        #expect(data.count > 10)
     }
+    
+    @Test("Prueba de carga de datos del viewmodel")
+    func dataLoadVM() throws {
+        #expect(viewModel.cards.count == 4)
+    }
+
 
 }
